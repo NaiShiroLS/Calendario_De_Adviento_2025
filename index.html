@@ -153,6 +153,13 @@
   }
   .day:hover::after{ transform: rotate(25deg) translateX(100%); }
 
+  /* AJUSTE PARA EL DÍA 25 */
+  .small-emoji {
+    font-size: 0.85em; /* Ligeramente más pequeño que el texto del título */
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
   /* locked overlay mark (small) */
   .day.locked::before{
     content:'🔒'; position:absolute; right:8px; top:8px; font-size:0.9rem; opacity:0.55;
@@ -170,7 +177,19 @@
   }
   .modal h2{ margin:0 0 10px 0; font-family:'Playfair Display', Georgia, serif; color:var(--red) }
   .modal p{ margin:0 0 12px 0; line-height:1.5; color:var(--text) }
-  .modal .close{ position:absolute; right:12px; top:10px; background:var(--red); color:white; border:none; padding:8px 10px; border-radius:8px; cursor:pointer; }
+  .modal .close{ 
+    position:absolute; 
+    right:12px; 
+    top:10px; 
+    background:var(--red); 
+    color:white; 
+    border:none; 
+    padding:8px; 
+    border-radius:8px; 
+    cursor:pointer; 
+    font-size: 22px;
+    line-height: 1; 
+  }
 
   /* modal open animation (pop) */
   .modal.pop {
@@ -251,6 +270,16 @@
   transform: translateX(100%);
 }
 
+/* 🆕 MEDIA QUERY PARA TELÉFONOS MÓVILES */
+@media(max-width: 480px) {
+  /* Hacemos el botón MÁS GRANDE y la fuente MÁS VISIBLE en móviles */
+  #musicToggle {
+    padding: 10px 18px; /* Aumentamos el área de clic */
+    font-size: 1.0rem;  /* Aumentamos un poco el texto */
+    left: 8px;          /* Ajustamos la posición */
+    bottom: 8px;
+  }
+}
 
 </style>
 </head>
@@ -258,44 +287,17 @@
 
 <header><h1>Calendario de Adviento</h1></header>
 
-<!-- AREA PARA NIEVE (necesario para startSnow) -->
 <div id="snowArea" class="snow-area" aria-hidden="true"></div>
 
 <main>
   <section class="calendar-container" id="calendar">
-    <!-- mosaic of 24 days (sizes vary) -->
-    <div class="day w2" data-day="1">1</div>       <!-- Medium horizontal -->
-    <div class="day" data-day="2">2</div>           <!-- Small -->
-    <div class="day" data-day="3">3</div>           <!-- Large -->
-    <div class="day h2" data-day="4">4</div>        <!-- Medium vertical -->
-    <div class="day" data-day="5">5</div>           <!-- Medium -->
-    <div class="day" data-day="6">6</div>           <!-- Small -->
-    <div class="day" data-day="7">7</div>           <!-- Small -->
-    <div class="day w2" data-day="8">8</div>       <!-- Medium horizontal -->
-    <div class="day" data-day="9">9</div>           <!-- Small -->
-    <div class="day" data-day="10">10</div>         <!-- Small -->
-    <div class="day h2" data-day="11">11</div>      <!-- Medium vertical -->
-    <div class="day" data-day="12">12</div>         <!-- Small -->
-    <div class="day" data-day="13">13</div>         <!-- Small -->
-    <div class="day" data-day="14">14</div>         <!-- Medium -->
-    <div class="day" data-day="15">15</div>         <!-- Medium -->
-    <div class="day" data-day="16">16</div>         <!-- Small -->
-    <div class="day" data-day="17">17</div>         <!-- Small -->
-    <div class="day" data-day="18">18</div>         <!-- Medium horizontal -->
-    <div class="day" data-day="19">19</div>         <!-- Small -->
-    <div class="day h2" data-day="20">20</div>       <!-- Medium horizontal -->
-    <div class="day w2" data-day="21">21</div>         <!-- Small -->
-    <div class="day" data-day="22">22</div>      <!-- Medium vertical -->
-    <div class="day" data-day="23">23</div>         <!-- Small -->
-    <div class="day" data-day="24">24</div>      <!-- Large horizontal -->
-    <div class="day day25" data-day="25">🎄 25 🎄</div>
+    <div class="day w2" data-day="1">1</div>       <div class="day" data-day="2">2</div>           <div class="day" data-day="3">3</div>           <div class="day h2" data-day="4">4</div>        <div class="day" data-day="5">5</div>           <div class="day" data-day="6">6</div>           <div class="day" data-day="7">7</div>           <div class="day w2" data-day="8">8</div>       <div class="day" data-day="9">9</div>           <div class="day" data-day="10">10</div>         <div class="day h2" data-day="11">11</div>      <div class="day" data-day="12">12</div>         <div class="day" data-day="13">13</div>         <div class="day" data-day="14">14</div>         <div class="day" data-day="15">15</div>         <div class="day" data-day="16">16</div>         <div class="day" data-day="17">17</div>         <div class="day" data-day="18">18</div>         <div class="day" data-day="19">19</div>         <div class="day h2" data-day="20">20</div>       <div class="day w2" data-day="21">21</div>         <div class="day" data-day="22">22</div>      <div class="day" data-day="23">23</div>         <div class="day" data-day="24">24</div>      <div class="day day25" data-day="25">🎄 25 🎄</div>
   </section>
 </main>
 
-<!-- modal -->
 <div class="modal-bg" id="modalBg" aria-hidden="true">
   <div class="modal" id="modal">
-    <button class="close" id="closeBtn">✖</button>
+    <button class="close" id="closeBtn">&times;</button>
     <div id="modalInner">
       <h2 id="modalTitle"></h2>
       <p id="modalText"></p>
@@ -304,7 +306,6 @@
   </div>
 </div>
 
-<!-- Audio (música de fondo y campana) -->
 <audio id="bgMusic" loop preload="auto">
   <source src="Sounds/Music.mp3" type="audio/mpeg">
 </audio>
@@ -312,7 +313,6 @@
   <source src="Sounds/Bells.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Music toggle (discreto) -->
 <button id="musicToggle" aria-pressed="false"
 style="
   position:fixed;
@@ -353,7 +353,7 @@ const content = {
   /*✓*/ 6: { title:"Día 6 — Receta: Chocolate", text:"Chocolate caliente estilo francés. ¡Más fácil de lo que parece! Mira el vídeo para el paso a paso.<br><br><strong>Ingredientes:</strong><br>- 500ml leche de vaca o vegetal<br>- 150g chocolate semiamargo<br>- 1-2 rajas de canela<br>- 1 cdta azúcar<br>- 1 cdta vainilla<br>- 1 cda cacao<br>- 1 cda cocoa<br>- 1/4 cdta de sal<br><br><strong>Tip:</strong> Muévelo constantemente para que no se queme ni se pegue.", link:"https://youtu.be/1wD9OLIXxks", funFact:"El chocolate caliente se popularizó en Europa en el siglo XVII.", image:"Img-Cal/dia6.jpg"},
   /*✓*/ 7: { title:"Día 7 — Actividad: Fotos", text:"Tómate 5 fotos a lo largo del día. Por la noche, escribe qué te ha gustado de cada una y por qué la tomaste. ¡Un diario visual! ✨ Tip Sencillo de Foto: No te quedes a la altura de los ojos. Prueba a agacharte o a elevar el móvil; ¡cambiar la perspectiva es el secreto!", link:"https://youtu.be/flr8vDQ9Wuc", funFact:"La fotografía consciente ayuda a prestar más atención a los pequeños detalles de la vida diaria.", image:"Img-Cal/dia7.jpg"},
   /*✓*/ 8: { title:"Día 8 — Video: Pantera Rosa", text:"¿Una buena <strong>sesión</strong> de dibujos? Mira este especial de Navidad de la Pantera Rosa. Corto, <strong>curioso</strong> y con ese toque nostálgico que necesitamos.", link:"https://youtu.be/Dt9UPRzRCAY", funFact:"El especial navideño 'A Pink Christmas' se emitió casi tres décadas después de que la serie original dejara de emitirse.", image:"Img-Cal/dia8.jpg"},
-  /*✓*/ 9: { title:"Día 9 — Reto: Limpieza", text:"Reto de Despeje. Deshazte de lo que ya no te suma (físico o digital). Empieza a hacer espacio para lo bueno que trae el Año Nuevo.", link:"", funFact:"Reflexionar sobre gratitud aumenta la felicidad durante las fiestas.", image:"Img-Cal/dia9.jpg"},
+  /*✓*/ 9: { title:"Día 9 — Reto: Limpieza", text:"Reto de Despeje. Deshazte de lo que ya no te suma (físico o digital). Empieza a hacer espacio para lo bueno que trae el Año Nuevo.", link:"https://youtu.be/zF2zZXR6dQ0", funFact:"Reflexionar sobre gratitud aumenta la felicidad durante las fiestas.", image:"Img-Cal/dia9.jpg"},
   /*✓*/ 10: { title:"Día 10 — Consejo", text:"A veces, el mejor regalo que podemos darnos es una pausa. Permítete ese momento de calma en tu día. (¡Dale play a la música de fondo!)", link:"https://youtu.be/igJo0voxIJ4", funFact:"Tomarse momentos de descanso mejora el bienestar y la conexión con la familia.", image:"Img-Cal/dia10.jpg"}, 
   /*✓*/ 11: { title:"Día 11 — Receta: Galletas", text:"Galletas de Mantequilla Navideñas. ¡Un clásico fácil para decorar! Mira el vídeo para el paso a paso.<br><br><strong>Ingredientes:</strong><br>- 160g de Azúcar<br><br>- 125g de Mantequilla sin sal (a temperatura ambiente)<br>- Ralladura de 1 limón<br>- Una pizca de sal<br>- 2 Huevos<br>- 450g de Harina de trigo<br>- 16g de levadura quimica (normalmente un sobre de royal es perfecto)<br>- No guardes la harina aun la necesitas para amasar 👀<br><br><strong>Tip:</strong> Deja reposar la masa envuelta en papel film en la nevera por 30 minutos. Hornea a 180°C (350°F) por unos 10-12 minutos.", link:"https://youtu.be/Xc26yOBHr40", funFact:"La tradición de hornear galletas en Navidad proviene de los rituales alemanes medievales.", image:"Img-Cal/dia11.jpg"}, 
   /*✓*/ 12: { title:"Día 12 — Tarea", text:"Cada vez falta menos para Navidad... ¿Aún no has montado el árbol? ¡A qué esperas! Y si ya lo has montado... ¿Que tal si le das un toque más original?", link:"https://youtube.com/playlist?list=PLJIUlx-Hso9pJQgIi4tq2agMXoKKKAAWd&si=h3bzGgmV6JKQJk_1", funFact:"Hacer manualidades reduce el estrés y aumenta la sensación de logro personal.", image:"Img-Cal/dia12.jpg"},
@@ -365,11 +365,18 @@ const content = {
   /*✓*/ 18: { title:"Día 18 — Corto: Tom y Jerry", text:"¡Un clásico de la infancia! Tómate un descanso y disfruta de este divertido corto navideño de Tom y Jerry, lleno de travesuras festivas. 🎬", link:"https://youtu.be/0OdBlnbaPBs", funFact:"El primer corto de Tom y Jerry fue lanzado en 1940, y sus especiales navideños se convirtieron en un favorito de la televisión familiar.", image:"Img-Cal/dia18.jpg"},
   /*✓*/ 19: { title:"Día 19 — Nota", text:"Si hoy te sientes cansado o la energía no te da, está bien. La vida tiene sus días. Tómate el tiempo que necesites para ti. El descanso es parte del proceso.", link:"https://youtu.be/IaaiV68JNCM", funFact:"La auto-compasión aumenta la resiliencia durante tiempos estresantes.", image:"Img-Cal/dia19.jpg"},
   /*✓*/ 20: { title:"Día 20 — Juego: Puzzle", text:"Tómate un respiro para armar este Puzzle Navideño. Es una actividad relajante y una buena excusa para desconectar un rato del móvil. 🧩", link:"https://puzzlefactory.com/es/rompecabezas-navidad/299348-pueblo-en-navidad-rompecabezas#7x6", funFact:"Los puzzles son excelentes para ejercitar la mente y la paciencia.", image:"Img-Cal/dia20.jpg"}, 
-  /*✓*/ 21: { title:"Día 21 — Corto: Mickey", text:"Clásico y nostálgico. Mira 'Mickey's Christmas Carol'. Hazte unas palomitas y disfruta de este recuerdo de la infancia.", link:"https://www.canva.com/design/DAG6TfPaQII/u3kxjsRAlS_eMtJXsUguXQ/watch?utm_content=DAG6TfPaQII&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h245f8616e9", funFact:"Este corto combina humor y tradición navideña de manera atemporal, adaptando la obra de Dickens.", image:"Img-Cal/dia21.jpg"},
+  /*✓*/ 21: { title:"Día 21 — Corto: Mickey", text:"Clásico y nostálgico. Mira 'Mickey's Christmas Carol'. Hazte unas palomitas y disfruta de este recuerdo de la infancia.", link:"https://www.canva.com/design/DAG6TfPaQII/u3kxjsRAlS_eMtJXsUguXQ/watch?utm_content=DAG6TfPaQII&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h245f8616e9", funFact:"Este corto combina humor y tradición navideña de manera atemporal, adaptando la obra de Dickens.", image:"Img-Cal/dia21.jpg"}, 
   /*✓*/ 22: { title:"Día 22 — Actividad: Detalle", text:"Hoy el reto es tener un detalle bonito con alguien, ya sea halagando su ropa, felicitando su trabajo o simplemente dedicándole una sonrisa sincera. ¡Regala un buen momento!", link:"https://youtu.be/rBrd_3VMC3c", funFact:"Tener pequeños gestos de amabilidad aumenta tu felicidad y la de los demás.", image:"Img-Cal/dia22.jpg"}, 
   /*✓*/  23: { title:"Día 23 — Reto: Vision Board", text:"Dedica un rato a pensar cómo quieres que sea tu próximo año. El <em>vision board</em> ayuda visualmente a que te centres en tus metas. <strong>Nota Importante:</strong> Recuerda que nada cae del cielo; es la <strong>actitud y el esfuerzo</strong> que le dediques lo que realmente logrará tus objetivos. Aquí tienes un tutorial rápido para inspirarte: ", link:"https://youtu.be/oXyxYzYZgsg", funFact:"Crear un Vision Board ayuda a visualizar metas y mantener la motivación a largo plazo.", image:"Img-Cal/dia23.jpg"},
   /*✓*/  24: { title:"Día 24 — Película", text:"¡Ya casi es Navidad! Hoy te toca una peli. Prepara mantas y chocolate caliente para ver este clasico Navideño: El Cascanueces. 🎬", link:"https://www.canva.com/design/DAG6TCwBeYk/zNrpkFaArjKLB8kmR4MU1Q/watch?utm_content=DAG6TCwBeYk&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hbf1f9e7e96", funFact:"Las películas navideñas se han convertido en una tradición moderna desde mediados del siglo XX.", image:"Img-Cal/dia24.jpg"},
-  /*✓*/  25: { title:"🎄 Día 25 — ¡Feliz Navidad!", text:"¡Llegamos! Gracias por seguirme en este calendario. Mi regalo para ti es este corto que hice con mucho cariño. Dale play y disfruta. ¡Feliz Navidad! ❤️", link:"https://unacartaespecial.my.canva.site/navidad", funFact:"El árbol de Navidad más grande del mundo se encuentra en Río de Janeiro, Brasil.", image:"Img-Cal/dia25.jpg"}
+  /*✓*/  /* ... (Días 1 a 24 sin cambios) ... */
+/*✓*/ 25: { 
+    title:"<span class='small-emoji'>🎄</span> Día 25 — ¡Feliz Navidad!", // 🆕 Con la clase para reducir el tamaño
+    text:"¡Llegamos! Gracias por seguirme en este calendario. Mi regalo para ti es este corto que hice con mucho cariño. Dale play y disfruta. ¡Feliz Navidad! ❤️", 
+    link:"https://unacartaespecial.my.canva.site/navidad", 
+    funFact:"El árbol de Navidad más grande del mundo se encuentra en Río de Janeiro, Brasil.", 
+    image:"Img-Cal/dia25.jpg"
+  }
 };
 
 /* ---------- NIEVE (crea elementos con movimiento) ---------- */
@@ -403,6 +410,7 @@ const content = {
 
 /* ---------- UI + INTERACCIONES ---------- */
 const calendar = document.getElementById('calendar');
+const header = document.querySelector('header'); // 🆕 Seleccionamos el header
 const modalBg = document.getElementById('modalBg');
 const modal = document.getElementById('modal');
 const modalTitle = document.getElementById('modalTitle');
@@ -422,12 +430,18 @@ function startMusic() {
     musicToggle.setAttribute('aria-pressed','true');
   }).catch(()=>{});
 
+  // 🆕 Eliminamos listeners para que solo se ejecute UNA vez
   document.removeEventListener('click', startMusic);
   document.removeEventListener('touchstart', startMusic);
+  header.removeEventListener('click', startMusic);
+  header.removeEventListener('touchstart', startMusic);
 }
 
+// 🆕 Añadimos listeners: Se activa con cualquier clic, incluyendo el título.
 document.addEventListener('click', startMusic, { once: true });
 document.addEventListener('touchstart', startMusic, { once: true });
+header.addEventListener('click', startMusic, { once: true }); 
+header.addEventListener('touchstart', startMusic, { once: true });
 
 
 /* music toggle */
@@ -544,11 +558,6 @@ document.addEventListener('keydown', (e)=> {
 /* marcar visualmente locked al cargar */
 (function markLocked(){
   if(FORCE_UNLOCK) return;
-  document.querySelectorAll('.day').forEach(el=>{
-    const d = parseInt(el.dataset.day,10);
-    if(d > today) el.classList.add('locked');
-  });
-  // AÑADIR DENTRO DE markLocked() ANTES DEL })();
   document.querySelectorAll('.day').forEach(el=>{
     const d = parseInt(el.dataset.day,10);
     if(d > today) el.classList.add('locked');
